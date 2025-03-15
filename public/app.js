@@ -116,7 +116,7 @@ function resetUI() {
     document.getElementById('claimButton').disabled = true;
     document.getElementById('donateButton').disabled = true;
     document.getElementById('eligibilityInfo').textContent = 'Connect your wallet to check eligibility';
-    toggleAdminFunctions();
+    toggleAdminFunctions(); // Ensure admin section is hidden
 }
 
 // Update faucet info
@@ -207,10 +207,18 @@ async function updateEligibilityStatus() {
     }
 }
 
-// Toggle admin functions
+// Toggle admin section visibility
 function toggleAdminFunctions() {
-    document.getElementById('notOwnerWarning').style.display = isOwner ? 'none' : 'block';
-    document.getElementById('adminFunctions').style.display = isOwner ? 'block' : 'none';
+    const adminSection = document.getElementById('adminSection');
+    const adminFunctions = document.getElementById('adminFunctions');
+    
+    if (isOwner) {
+        adminSection.style.display = 'block'; // Show the entire admin section
+        adminFunctions.style.display = 'block'; // Show the admin functions
+    } else {
+        adminSection.style.display = 'none'; // Hide the entire admin section
+        adminFunctions.style.display = 'none'; // Ensure admin functions are hidden
+    }
 }
 
 // Format address
