@@ -5,11 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black Faucet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="ico.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
         body {
-            background-color: #f8f9fa;
+            background: linear-gradient(135deg, #121212 0%, #1f1f1f 100%);
+            color: #b0b0b0;
             padding-top: 20px;
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
         }
         .container {
             max-width: 900px;
@@ -17,39 +20,165 @@
         }
         .card {
             margin-bottom: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.03);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(255, 255, 255, 0.05);
         }
         .card-header {
             font-weight: bold;
-            background-color: #6c5ce7;
-            color: white;
-            border-radius: 10px 10px 0 0 !important;
+            background: linear-gradient(90deg, #2a2a3a, #3a3a4a);
+            color: #d0d0d0;
+            border-radius: 15px 15px 0 0 !important;
+            padding: 15px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
         }
         .btn-primary {
-            background-color: #6c5ce7;
-            border-color: #6c5ce7;
+            background: linear-gradient(45deg, #2a2a3a, #404055);
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            color: #c0c0c0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
         .btn-primary:hover {
-            background-color: #5546e0;
-            border-color: #5546e0;
+            background: linear-gradient(45deg, #404055, #2a2a3a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            color: #d8d8d8;
+        }
+        .btn-success {
+            background: linear-gradient(45deg, #2a3a2a, #3a4a3a);
+            border: none;
+            color: #c0c0c0;
+            transition: all 0.3s ease;
+        }
+        .btn-success:hover {
+            background: linear-gradient(45deg, #3a4a3a, #2a3a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            color: #d8d8d8;
+        }
+        .btn-danger {
+            background: linear-gradient(45deg, #3a2a2a, #4a3a3a);
+            border: none;
+            color: #c0c0c0;
+            transition: all 0.3s ease;
+        }
+        .btn-danger:hover {
+            background: linear-gradient(45deg, #4a3a3a, #3a2a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            color: #d8d8d8;
+        }
+        .btn-warning {
+            background: linear-gradient(45deg, #3a3a2a, #4a4a3a);
+            border: none;
+            color: #c0c0c0;
+            transition: all 0.3s ease;
+        }
+        .btn-warning:hover {
+            background: linear-gradient(45deg, #4a4a3a, #3a3a2a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+            color: #d8d8d8;
         }
         .admin-section {
-            background-color: #f0f0f0;
-            border-left: 4px solid #fd79a8;
+            background: linear-gradient(145deg, #222222, #2c2c2c);
+            border-left: 4px solid #4a3a4a;
+            border-radius: 0 15px 15px 0;
+            box-shadow: inset 0 0 8px rgba(74, 58, 74, 0.2);
         }
         #connectionStatus {
-            padding: 10px;
-            border-radius: 5px;
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 20px;
             text-align: center;
             cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
         }
         .connected {
-            background-color: #55efc4;
+            background: linear-gradient(45deg, #2a3a2a, #3a4a3a);
+            color: #d0d0d0;
         }
         .disconnected {
-            background-color: #fab1a0;
+            background: linear-gradient(45deg, #3a2a2a, #4a3a3a);
+            color: #d0d0d0;
+        }
+        #connectionStatus:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+        }
+        h1 {
+            color: #c0c0c0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 1s ease-in;
+        }
+        .form-control {
+            background: linear-gradient(145deg, #252525, #303030);
+            border: 1px solid #404040;
+            color: #b0b0b0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            background: linear-gradient(145deg, #303030, #353535);
+            border-color: #4a4a4a;
+            box-shadow: 0 0 8px rgba(74, 74, 74, 0.3);
+            color: #d0d0d0;
+        }
+        .alert {
+            background: linear-gradient(145deg, #252525, #303030);
+            border: none;
+            color: #b0b0b0;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+        .alert-info {
+            background: linear-gradient(145deg, #2a2a3a, #353545);
+        }
+        .alert-success {
+            background: linear-gradient(145deg, #2a3a2a, #354535);
+        }
+        .alert-danger {
+            background: linear-gradient(145deg, #3a2a2a, #453535);
+        }
+        .alert-warning {
+            background: linear-gradient(145deg, #3a3a2a, #454535);
+        }
+        .nav-tabs .nav-link {
+            color: #b0b0b0;
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .nav-tabs .nav-link.active {
+            background: linear-gradient(145deg, #2a2a3a, #353545);
+            color: #d0d0d0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        .nav-tabs .nav-link:hover {
+            color: #d0d0d0;
+            background: linear-gradient(145deg, #252525, #303030);
+        }
+        .tab-content {
+            background: linear-gradient(145deg, #1a1a1a, #252525);
+            border-radius: 0 0 15px 15px;
+        }
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .card, .btn, #connectionStatus {
+            animation: fadeIn 0.5s ease-in;
         }
     </style>
 </head>
