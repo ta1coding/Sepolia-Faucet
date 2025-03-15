@@ -1,17 +1,17 @@
 # @version ^0.3.7
 
-# Interface for ERC721
-interface ERC721:
-    def balanceOf(_owner: address) -> uint256: view
-    def ownerOf(_tokenId: uint256) -> address: view
+# Interface for ERC1155
+interface ERC1155:
+    def balanceOf(_owner: address, _id: uint256) -> uint256: view
 
 # State variables
 owner: public(address)
 whitelist: public(HashMap[address, bool])
 last_claim_time: public(HashMap[address, uint256])
 required_nft_contract: public(address)
-claim_cooldown: public(uint256)  # 24 hours in seconds
-claim_amount: public(uint256)  # 0.3 Sepolia in wei
+required_token_id: public(uint256)  # Specific token ID required for claiming
+claim_cooldown: public(uint256)    # 24 hours in seconds
+claim_amount: public(uint256)      # 0.3 Sepolia in wei
 
 # Events
 event WhitelistUpdated:
@@ -21,7 +21,11 @@ event WhitelistUpdated:
 event NFTContractUpdated:
     old_contract: address
     new_contract: address
-    
+
+event RequiredTokenIdUpdated:
+    old_token_id: uint256
+    new_token_id: uint256
+
 event FaucetClaimed:
     recipient: address
     amount: uint256
@@ -31,11 +35,12 @@ event FaucetDonation:
     amount: uint256
 
 @external
-def __init__(_required_nft_contract: address):
+def __init__(_required_nft_contract: address, _required_token_id: uint256):
     self.owner = msg.sender
-    self.claim_cooldown = 86400  # 24 hours in seconds
+    self.claim_cooldown = 86400             # 24 hours in seconds
     self.claim_amount = 300000000000000000  # 0.3 Sepolia ETH in wei
     self.required_nft_contract = _required_nft_contract
+    self.required_token_id = _required_token_id
 
 @external
 @payable
@@ -63,9 +68,9 @@ def claim():
     # Check if the cooldown period has passed
     assert block.timestamp > self.last_claim_time[msg.sender] + self.claim_cooldown, "Cooldown period not passed"
     
-    # Check if the user has the required NFT
-    nft_contract: ERC721 = ERC721(self.required_nft_contract)
-    assert nft_contract.balanceOf(msg.sender) > 0, "User does not own the required NFT"
+    # Check if the user owns the specific required NFT
+    nft_contract: ERC1155 = ERC1155(self.required_nft_contract)
+    assert nft_contract.balanceOf(msg.sender, self.required_token_id) > 0, "User does not own the required NFT"
     
     # Check if the contract has enough balance
     assert self.balance >= self.claim_amount, "Faucet is empty"
@@ -122,6 +127,16 @@ def set_nft_contract(_new_contract: address):
     log NFTContractUpdated(old_contract, _new_contract)
 
 @external
+def set_required_token_id(_new_token_id: uint256):
+    """
+    Update the required token ID for claiming
+    """
+    assert msg.sender == self.owner, "Only owner can update required token ID"
+    old_token_id: uint256 = self.required_token_id
+    self.required_token_id = _new_token_id
+    log RequiredTokenIdUpdated(old_token_id, _new_token_id)
+
+@external
 def set_claim_amount(_amount: uint256):
     """
     Update the claim amount
@@ -157,8 +172,8 @@ def can_claim(_user: address) -> bool:
     if block.timestamp <= self.last_claim_time[_user] + self.claim_cooldown:
         return False
     
-    nft_contract: ERC721 = ERC721(self.required_nft_contract)
-    if nft_contract.balanceOf(_user) == 0:
+    nft_contract: ERC1155 = ERC1155(self.required_nft_contract)
+    if nft_contract.balanceOf(_user, self.required_token_id) == 0:
         return False
     
     return self.balance >= self.claim_amount

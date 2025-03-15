@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sepolia ETH Faucet</title>
+    <title>Black Faucet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -54,7 +54,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center my-4">Sepolia ETH Faucet</h1>
+        <h1 class="text-center my-4">Black Faucet</h1>
         
         <div id="connectionStatus" class="disconnected">
             Not connected to Ethereum network. Click here to connect.
@@ -70,6 +70,7 @@
                                 <p><strong>Contract Address:</strong> <span id="contractAddress">-</span></p>
                                 <p><strong>Faucet Balance:</strong> <span id="faucetBalance">-</span> Sepolia ETH</p>
                                 <p><strong>NFT Contract Required:</strong> <span id="nftContractAddress">-</span></p>
+                                <p><strong>Required Token ID:</strong> <span id="requiredTokenId">-</span></p>
                             </div>
                             <div class="col-md-6">
                                 <p><strong>Claim Amount:</strong> <span id="claimAmount">-</span> Sepolia ETH</p>
@@ -181,6 +182,14 @@
                                         <div class="input-group">
                                             <input type="text" class="form-control" id="newNftContract" placeholder="NFT Contract Address (0x...)">
                                             <button class="btn btn-primary" type="button" id="updateNftContractButton">Update</button>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <label for="newRequiredTokenId" class="form-label">Update Required Token ID:</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="newRequiredTokenId" placeholder="Token ID" min="0" step="1">
+                                            <button class="btn btn-primary" type="button" id="updateRequiredTokenIdButton">Update</button>
                                         </div>
                                     </div>
                                     
