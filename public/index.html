@@ -116,6 +116,17 @@
             transform: scale(1.02);
             box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
         }
+        #spendEthMessage {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        #spendEthMessage:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+        }
         h1 {
             color: #c0c0c0;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
@@ -177,7 +188,7 @@
             from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        .card, .btn, #connectionStatus {
+        .card, .btn, #connectionStatus, #spendEthMessage {
             animation: fadeIn 0.5s ease-in;
         }
         /* Remove number input arrows */
@@ -197,6 +208,13 @@
         
         <div id="connectionStatus" class="disconnected">
             Not connected to Ethereum network. Click here to connect.
+        </div>
+        
+        <!-- Modified message with transition effects -->
+        <div class="row mt-2">
+            <div class="col-md-12 text-center">
+                <p id="spendEthMessage" class="alert alert-info mb-4">Want to spend your ETH? Go to <a href="https://themegadare.web.app" target="_blank">themegadare.web.app</a></p>
+            </div>
         </div>
         
         <div class="row">
@@ -384,5 +402,4 @@
     <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js" type="application/javascript"></script>
     <script src="faucet-abi.js"></script>
     <script src="app.js"></script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92097e7b5dbfb050',t:'MTc0MjAxNTMxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9209ce0a7e84b043',t:'MTc0MjAxODU3Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
-</html>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'92097e7b5dbfb050',t:'MTc0MjAxNTMxOC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})
